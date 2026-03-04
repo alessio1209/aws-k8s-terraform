@@ -199,7 +199,7 @@ resource "aws_instance" "server_k8s" {
 #13. --- Output dell'IP pubblico dell'EC2
 #output = è il comando di terraform che estrae un'informazione e la stampa a schermo, nel nostro caso dal cloud
 output "ip_del_server" {
-	decription = "L'indirizzo IP pubblico attuale dell'istanza EC2"
+	description = "L'indirizzo IP pubblico attuale dell'istanza EC2"
 	#"value   = aws_instance.server_k8s.pubblic_ip" = aws_instance = è la risorsa, cercherà tra i server fisici e virtuali. .server_k8s = il nome che abbiamo assegnato nel blocco 12 al server. .public_ip = attributo che vogliamo estrarre. Amazon assegna tantissimi dati a un server (ad esempio: RAM, ID, ecc...)
 	value	= aws_instance.server_k8s.pubblic_ip
 }
