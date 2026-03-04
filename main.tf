@@ -183,7 +183,7 @@ resource "aws_key_pair" "chiave_k8s" {
 resource "aws_instance" "server_k8s" {
 	#"ami = data.aws_ami.ubuntu.id" = invece di scrivere un codice a mano, diciamo a terraform di installare come sistema operativo quello che hai appena trovato con il radar nel blocco 10
 	ami	= data.aws_ami.ubuntu.id
-	#"instance_type = "t2.micro" = la taglia dell'hardware. t2.micro dà 1 vCPU e 1 gb di RAM 
+	#"instance_type = "t3.micro" = la taglia dell'hardware. t3.micro dà 2 vCPU e 1 gb di RAM 
 	instance_type	= "t3.micro"
 	#"subnet_id = aws_subnet.subnet_pubblica.id" = mettiamo questo server nella sottorete che abbiamo costruito nel blocco 5 
 	subnet_id	= aws_subnet.subnet_pubblica.id
@@ -194,4 +194,12 @@ resource "aws_instance" "server_k8s" {
 	tags = {
 		Name = "server-kubernetes-1"
 	}
+}
+
+#13. --- Output dell'IP pubblico dell'EC2
+#output = è il comando di terraform che estrae un'informazione e la stampa a schermo, nel nostro caso dal cloud
+output "ip_del_server" {
+	decription = "L'indirizzo IP pubblico attuale dell'istanza EC2"
+	#"value   = aws_instance.server_k8s.pubblic_ip" = aws_instance = è la risorsa, cercherà tra i server fisici e virtuali. .server_k8s = il nome che abbiamo assegnato nel blocco 12 al server. .public_ip = attributo che vogliamo estrarre. Amazon assegna tantissimi dati a un server (ad esempio: RAM, ID, ecc...)
+	value	= aws_instance.server_k8s.pubblic_ip
 }
